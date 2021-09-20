@@ -1,5 +1,5 @@
 function buildMeta(sample){
-    d3.json('../samples.json').then((data)=>{
+    d3.json('samples.json').then((data)=>{
         var sample_meta = data.metadata;
         var results = sample_meta.filter(sampleObject => sampleObject.id==sample);
         var result = results[0];
@@ -10,15 +10,15 @@ function buildMeta(sample){
         });
     });
 }
-
+console.log(sample_meta)
 function buildCharts(sample){
-    d3.json('../samples.json').then((data)=>{
+    d3.json('samples.json').then((data)=>{
         var samples = data.samples;
         var results = samples.filter(sampleObject => sampleObject.id==sample);
         var result = results[0];
-        var otu_ids=result.otu_ids
-        var otu_labels=result.otu_labels
-        var sample_values=result.sample_values
+        var otu_ids=result.otu_ids;
+        var otu_labels=result.otu_labels;
+        var sample_values=result.sample_values;
         // build var chart (horizontal)
 
         var yticks = otu_ids.slice(0,10).map(x=>`OTU ${x}`).reverse();
@@ -33,7 +33,7 @@ function buildCharts(sample){
         Plotly.newPlot("bar",barData,barLayout); 
 console.log(samples[0].otu_ids)
         // build bubble chart
-        var data_bubble = [{
+        var data_bubble = {
             x: samples[0].otu_ids,
             y: samples[0].sample_values,
             text:samples[0].otu_labels.slice(0,10),
@@ -42,7 +42,7 @@ console.log(samples[0].otu_ids)
               size: samples[0].sample_values,
               color: samples[0].otu_ids
             }
-          }];
+          };
           var layout_bubble = {
             title:{
               text: ` OTU IDs and Corresponding Sample Values`
@@ -63,9 +63,9 @@ console.log(samples[0].otu_ids)
 }
 
 function updatePage(){
-	var dropdown=d3.selectAll('#selDataset');
-	d3.json('../samples.json').then((data)=>{
-    var sample_names = data.names
+	var dropdown=d3.select('#selDataset');
+	d3.json('samples.json').then((data)=>{
+    var sample_names = data.names;
 	sample_names.forEach((name)=>{
 	dropdown.append('option').text(name).property('value', name);
 	});
