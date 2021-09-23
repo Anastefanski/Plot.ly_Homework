@@ -45,7 +45,7 @@ console.log(samples[0].sample_values)
               color: otu_ids,
               colorscale: "Earth"
             }
-          };
+        ] 
         var bubbleLayout = {
             title: "Bacteria Cultures Per Sample",
             margin: { t: 0 },
